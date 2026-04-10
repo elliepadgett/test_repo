@@ -10,19 +10,12 @@
 </h1>
 
 <p align="center">
-
   <a href="#purpose">Purpose</a> •
-
   <a href="#how-to-use">How To Use</a> •
-
   <a href="#overview">Overview</a> •
-
   <a href="#">Visualization Programs</a> •
-
   <a href="#">Utility Functions</a> •
-
   <a href="#">Existing Visuals</a>
-
 </p>
 
   

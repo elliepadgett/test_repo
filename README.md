@@ -35,18 +35,18 @@ To use these programs, you must have \[Python\](<https://www.python.org/download
 
 Then, clone this repository. Navigate to the folder you want to add the scripts to and run these commands on your \[Git Bash\](<https://git-scm.com/install/windows>) (**Note:** these instructions are for Windows devices only).
 
-\`\`\`bash
+```bash
 
-\# Clone this repository  
+# Clone this repository  
 $ git clone REPLACE_ME
 
-\# Go into the repository  
+# Go into the repository  
 $ cd REPLACE_ME
 
-\# Install the required libraries  
+# Install the required libraries  
 $ pip install -r requirements.txt
 
-\`\`\`
+```
 
 ## Overview
 

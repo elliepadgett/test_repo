@@ -51,26 +51,26 @@ $ pip install -r requirements.txt
 ## Overview
 
 ```
-📂 helper_programs
-├── average_analysis.py     # Average over "square" area
-├── movie_maker.py          # Generate GIFs from raw data
-├── overlay_square.py       # Visualize square placement on the whole image
-├── plot_samples.py         # Probe the timeline one image at a time
-├── reshape_data.py         # Transform from .mat format to .npy
-├── check_displacement.py   # Identify global y-axis limits for all datasets
-└── unique_runs.py          # Generate all unique k++ initializations for the specified dataset(s) and perform Kmeans clustering
-📂 premade_visuals          # Old/existing plots, images, samples 
-├── 📂 avg_behavior         # Behavior of displacement averages over time by dataset
-├── 📂 clusters             # Cluster membership for all realizations
-├── 📂 gifs                 # Movies of raw data
-└── 📂 pooled_experiments   # Behavior and supplemental visuals for pooled experiments
-📂 raw_data                 # All original .mat files
+📂 helper_programs           # All utility and visualization scripts
+├── average_analysis.py       # Average over "square" area to generate whole time series
+├── movie_maker.py            # Generate GIFs from raw data
+├── overlay_square.py         # Visualize square placement on the whole image
+├── plot_samples.py           # Probe the timeline one image at a time
+├── reshape_data.py           # Transform from .mat format to .npy
+├── check_displacement.py     # Identify global y-axis limits for all datasets
+└── unique_runs.py            # Generate all unique k++ initializations for the specified dataset(s) and perform Kmeans clustering
+📂 premade_visuals           # Old/existing plots, images, samples 
+├── 📂 avg_behavior          # Behavior of displacement averages over time by dataset
+├── 📂 clusters              # Cluster membership for all realizations
+├── 📂 gifs                  # Movies of raw data
+└── 📂 pooled_experiments    # Behavior and supplemental visuals for pooled experiments
+📂 raw_data                  # All original .mat files
 ├── D17_D1_7p.mat
 └── ...
-📂 reshaped_data            # All reshaped .npy files
+📂 reshaped_data             # All reshaped .npy files
 ├── D17_D1_7p.npy
 └── ...
-📂 results                  # Tables and interpretations to date
+📂 results                   # Tables and interpretations to date
 └── membership_and_purity.pdf
 ```
 

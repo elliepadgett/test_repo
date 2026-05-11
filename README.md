@@ -14,8 +14,8 @@
   <a href="#how-to-use">How To Use</a> •
   <a href="#overview">Overview</a> •
   <a href="#visualization-programs">Visualization Programs</a> •
-  <a href="#utility-functions">Utility Functions</a> •
-  <a href="#existing-visuals">Existing Visuals</a>
+  <a href="#utility-scripts">Utility Scripts</a> •
+  <a href="#existing-visuals-and-tables">Existing Visuals and Tables</a>
 </p>
 
   
@@ -75,16 +75,15 @@ $ pip install -r requirements.txt
 ```
 
 ## Visualization Programs
-
-- [Movie Maker](#movie_maker.py)
-- [Overlay Square](#overlay_square)
-- [Plot Samples](#plot_samples)
-
-<!--- Replace these with your file names --->
-
-- **average_analysis.py**: takes a .npy file representing the reshaped dataset and generates a plot of the average color in an LxL square over time, where L is an integer. The number of images from the dataset and the range of Ls to analyze can be changed to alter the focus of the analysis.
+### A collection of programs which exclusively produce various visuals (GIFs, snapshots, etc.) from the raw or reduced data.
 - **movie_maker.py**: takes a .npy file representing the reshaped dataset and creates a .gif that plays the movie. This .gif can be saved or simply shown when the program is run, depending on if you want to keep the visual for later. Both .gif files in the **visualizations** folder were created from this script.
 - **overlay_square.py**: takes a .npy file representing the reshaped dataset and creates a plot displaying the "zoomed-in" LxL square of an image, the corresponding colorbar, and the full image with a red square overlaid in the approximate region where the cropped square was taken from. The current form of this script will create a plot for one image at a time, the index of which may be user-determined according to comments in the code.
 - **plot_samples.py**: takes a .npy file representing the reshaped dataset and plots stretched images of the user-determined samples. In its current form, the plot contains three images at roughly equidistant timesnaps in the chosen dataset, but these indices may be changed as needed to show a different set of images.
+
+## Utility Scripts
+### A collection of programs that do the bulk of the analytical work for this project.
 - **reshape_data.py**: the first step before working with any of the other files in this repository. This program takes in a .mat file of time-ordered images and reshapes them so they can be represented more appropriately as images in Python. The contents of the .mat file are reshaped and stored in a .npy file for later use. Use the reshaped .npy file instead of the original .mat for all other analysis purposes.
+- **average_analysis.py**: takes a .npy file representing the reshaped dataset and generates a plot of the average color in an LxL square over time, where L is an integer. The number of images from the dataset and the range of Ls to analyze can be changed to alter the focus of the analysis. This script is also responsible for producing organized time-series plots of the specified dataset(s).
 - **unique_runs.py**: Performs k x len(range of L) many unique k++ initializations for running K-means clustering on the specified dataset.
+
+## Existing Visuals and Tables

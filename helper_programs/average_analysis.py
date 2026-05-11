@@ -5,10 +5,10 @@ Author: Ellie Padgett
 
 This program analyzes the initial pulse contained within the first 30 images. For each L = 60:10:80,
 a square of width L is sliced from the center of each image and the average color is computed for that square 
-section. Each L-square's behavior will be plotted over time.
+section. Each L-square's behavior will be plotted over time. Currently able to plot up to four designs per figure.
 
 The data set consists of 119 images as arranged in the file d*_50v_reshaped.npy. Change the 
-filepath in the main function to pull from a different reshaped dataset. 
+filepaths in lines 60, 139, and/or 145 to pull from different reshaped datasets. 
 
 """
 
@@ -19,20 +19,20 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from pathlib import Path
 
 ###
 # GLOBALS
 ###
-# for new d17 datasets, determined by testColorRange.py
-ymin = -13.680035515970473e-01
-ymax = 3.3261941377613874e-01
+# for new d17 datasets, determined by check_displacement.py
+ymin = (10**5)*(-1.1115019440364524e-06)
+ymax = (10**5)*(2.3261941377613877e-07)
 
 
 ###
 # FUNCTIONS
 ###
-
-def averageAnalysis(data=np.array([]), title="Untitled", plots = False, byL = False):
+def average_analysis(datasets, title="Untitled", save = False, byL = False):
     """
     Computes the average color in a square of width L = 60:10:80 for images 0-29 in the
     provided dataset. The averages for this dataset are stored in a list for each L-square,
@@ -40,34 +40,30 @@ def averageAnalysis(data=np.array([]), title="Untitled", plots = False, byL = Fa
     L-square.
 
     Parameters:
-        data (np.array): the reshaped data to be analyzed
-        title (string): the name of the dataset to be worked with, in order to dynamically 
-        label the plot(s) correctly
+        data ([string]): the filepath(s) of the reshaped dataset(s) to be analyzed
+        title (string):  the name of the dataset to be worked with, in order to dynamically 
+                         label the plot(s) correctly
+        plots (bool):    true to save the generated plots without showing; false to show them
+                         without saving (default)
+        byL (bool:)      true to plot the datasets organized by L-size; false to plot by design (default)
     
     Return:
         list: the 2D list containing the lists of averages computed for each L-square
     """
-    length = np.linspace(10, 100, 10) # different values of L to check out
-    data_points = np.linspace(0, 29, 30) # indices of the images to analyze
-    x_axis = data_points # the point in time
-    
+    length = np.linspace(60, 80, 11) # different values of L to check out
+    x_axis = np.linspace(0, 29, 30) # indices of the images to analyze
+  
     all_L = [] # collection array for L samples
     plt.figure(figsize=(10, 9))
 
-    ## for plotting average analysis of all datasets together (comment out when not needed) --> plan to automate
-    # names = ["D17_D1_7p", "D17_D8_2p", "D17_D2_0p", "D17_D1np"] # newer D17 datasets
-    # names = ["d1_50v_reshaped", "d2_50v_reshaped"] # older D1-2 datasets
-
-    for x in range(2):
-      ## for plotting average analysis of all datasets together --> plan to automate
-      # data = np.load('old reshaped/' + names[x] + '.npy')[:30] # (comment out when not needed)
+    for x in range(len(datasets)):
+      data = np.load('../reshaped_data/' + datasets[x] + '.npy')[:30]
       height, width = data.shape[1:] # (119), 5000, 471 (for d*_50v experiments)
       scale = height/width # approx 10.6
-      scale_approx = math.floor(scale) # need an integer for image slicing; 10 or 11 both seem to work fine, but I've not
-                                       # yet done any error analysis
+      scale_approx = math.floor(scale) # need an integer for image slicing
       for l in length: # for each L
           y_axis = [] # average color value
-          for i in data_points: # analyze all images
+          for i in x_axis: # analyze all images
               # need l to be an integer for image slicing
               l = int(l)
               
@@ -78,62 +74,60 @@ def averageAnalysis(data=np.array([]), title="Untitled", plots = False, byL = Fa
               avg = np.mean(sq) # average over entire array of positive color values
               y_axis.append(avg*(10**5))
               
-
-          ## plot each L-trend by L size --> plan to automate
-          # if l < 68:
-          #     plt.plot(x_axis, y_axis, color = 'lightseagreen')
-          # elif l < 76:
-          #     plt.plot(x_axis, y_axis, color = 'orange')
-          # else:
-          #     plt.plot(x_axis, y_axis, color = 'firebrick')
-
-          ## plot each L-trend by design --> plan to automate
-          # if x == 0:
-          #     plt.plot(x_axis, y_axis, color = 'lightseagreen')
-          # elif x == 1:
-          #     plt.plot(x_axis, y_axis, color = 'orange')
-          # elif x == 2:
-          #   plt.plot(x_axis, y_axis, color = 'teal')
-          # else:
-          #     plt.plot(x_axis, y_axis, color = 'firebrick')
-          
-          plt.plot(x_axis, y_axis)
-
-
+          ## plot each L-trend by L size
+          if byL:
+            if l < 68:
+                plt.plot(x_axis, y_axis, color = 'lightseagreen')
+            elif l < 76:
+                plt.plot(x_axis, y_axis, color = 'orange')
+            else:
+                plt.plot(x_axis, y_axis, color = 'firebrick')
+          else: 
+            ## plot each L-trend by design
+            if x == 0:
+                plt.plot(x_axis, y_axis, color = 'lightseagreen')
+            elif x == 1:
+                plt.plot(x_axis, y_axis, color = 'orange')
+            elif x == 2:
+              plt.plot(x_axis, y_axis, color = 'teal')
+            else:
+                plt.plot(x_axis, y_axis, color = 'firebrick')
+            
           all_L.append(y_axis)
           y_axis = []
-          
-    ## constructing legend for plot, organized by square size L --> plan to automate
-    legend = []
-    for i in range(0, length.size):
-        legend.append('L = ' + str(int(length[i])))
-
-
-    ## create handles by color (by design) --> plan to automate
-    # d7p = mpatches.Patch(color='darkturquoise', label=names[0][-2:])
-    # d2p = mpatches.Patch(color='orange', label=names[1][-2:])
-    # d0p = mpatches.Patch(color='teal', label=names[2][-2:])
-    # dnp = mpatches.Patch(color='firebrick', label=names[3][-2:])
-
-    ## create handles by color (by L-range)
-    # small = mpatches.Patch(color='lightseagreen', label="L: 60 - 66")
-    # med = mpatches.Patch(color='orange', label="L: 68 - 74")
-    # large = mpatches.Patch(color='firebrick', label="L: 76 - 80")
     
     ## add legend, labels (handles), global axes, title
-    plt.legend(legend, loc='lower right')
+    if byL:
+      ## create handles by L-range
+      small = mpatches.Patch(color='lightseagreen', label="L: 60 - 66")
+      med = mpatches.Patch(color='orange', label="L: 68 - 74")
+      large = mpatches.Patch(color='firebrick', label="L: 76 - 80")
+      handles = [small, med, large]
+    else:
+      ## create handles by design
+      handles = []
+      colors = ["darkturquoise", "orange", "teal", "firebrick"]
+      for i in range(len(datasets)):
+         handles.append(mpatches.Patch(color=colors[i], label=datasets[i]))
+
+    if byL:
+       des = "L-size"
+    else:
+       des = "Design"
+    plt.legend(handles=handles, loc='lower right')
     plt.xlabel("Time (\u03BCs)")
     plt.ylabel("Average Displacement (\u03BCm)")
     plt.ylim(ymin, ymax)
-    plt.title(title + ": Average Color Behavior over Time (Organized by Design)")
+    plt.title(f"{title}: Average Color Behavior over Time (Organized by {des})")
     
-    ## save figure to specified file path (edit as needed) --> plan to automate
-    # plt.savefig("visualizations/prev_visuals/" + title + ".png")
+    ## save figure to specified file path (edit as needed)
+    if save:
+      plt.savefig("../premade_visuals/avg_behavior/" + title + ".png")
+    else:
+      ## show the figure without saving it
+      plt.show()
 
-    ## show figure (comment out as needed)
-    # plt.show()
-
-    ## returns the computed averages (y-axis values) for each line (either designs, L-sizes, or both)
+    ## returns the computed averages (y-axis values) for each time series
     return all_L
 
 
@@ -141,16 +135,15 @@ def averageAnalysis(data=np.array([]), title="Untitled", plots = False, byL = Fa
 # MAIN PROGRAM
 ###
 def main():
-    ## choose one set of designs to work with --> plan to automate
-    names = ["D17_D1_7p", "D17_D8_2p", "D17_D2_0p", "D17_D1np"]
+    ## to use the entire folder of datasets
+    names = Path("../reshaped_data").iterdir()
+    for name in names:
+      name = name.name[:-4]
+      average_analysis([name], name, byL=True, save=False)
 
-    for title in names:
-      data = np.load('old reshaped/' + title + '.npy')[:30]
-      # title = "Four Designs"
-      averageAnalysis(data, title)
-
-      ## if we only want to run a specific design once; otherwise all in the list will generate visuals --> plan to automate
-      # break
+    ## to plot multiple designs in the same figure, choose the set of up to four designs to work with --> these are the original four I chose
+    names = ["D17_D1_7p", "D17_D8_2p", "D17_D2_0p", "D17_D1_np"]
+    average_analysis(names, "four_designs_byL", byL=False, save=False)
     
 
 if __name__ == "__main__":

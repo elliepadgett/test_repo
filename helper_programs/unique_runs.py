@@ -256,7 +256,7 @@ def main():
     
     ## perform averaging analysis to collect vector data for clustering
     title = "four_designs_k2"
-    all_L = aa.averageAnalysis(data, "4 designs")
+    all_L = aa.average_analysis(data, "4 designs")
 
     ## grab all clustering data for each iteration
     # already pooled dataset, so second param is a placeholder --> plan to automate

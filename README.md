@@ -3,7 +3,7 @@
 
   <br>
 
-  Ellie’s Utility and Visualization Scripts
+  Utility and Visualization Scripts
 
   <br>
 
@@ -27,7 +27,7 @@
 
 ## Purpose
 
-<!--- Write a short paragraph / talk about some purpose here --->
+This collection of scripts was developed to assist in determining an appropriate "window" size through which to further analyze the displacement of a tissue simulant over time after receiving a pulse from an ultrasound wave. 
 
 ## How To Use
 
@@ -38,10 +38,10 @@ Then, clone this repository. Navigate to the folder you want to add the scripts 
 ```bash
 
 # Clone this repository  
-$ git clone REPLACE_ME
+$ git clone https://github.com/elliepadgett/test_repo.git
 
 # Go into the repository  
-$ cd REPLACE_ME
+$ cd test_repo
 
 # Install the required libraries  
 $ pip install -r requirements.txt
@@ -87,9 +87,9 @@ $ pip install -r requirements.txt
 ```python
 ```
 
-- **averagingAnalysis.py**: takes a .npy file representing the reshaped dataset and generates a plot of the average color in an LxL square over time, where L is an integer. The number of images from the dataset and the range of Ls to analyze can be changed to alter the focus of the analysis.
-- **movieMaker.py**: takes a .npy file representing the reshaped dataset and creates a .gif that plays the movie. This .gif can be saved or simply shown when the program is run, depending on if you want to keep the visual for later. Both .gif files in the **visualizations** folder were created from this script.
-- **overlaySquare.py**: takes a .npy file representing the reshaped dataset and creates a plot displaying the "zoomed-in" LxL square of an image, the corresponding colorbar, and the full image with a red square overlaid in the approximate region where the cropped square was taken from. The current form of this script will create a plot for one image at a time, the index of which may be user-determined according to comments in the code.
-- **plotSamples.py**: takes a .npy file representing the reshaped dataset and plots stretched images of the user-determined samples. In its current form, the plot contains three images at roughly equidistant timesnaps in the chosen dataset, but these indices may be changed as needed to show a different set of images.
-- **reshapeData.py**: the first step before working with any of the other files in this repository. This program takes in a .mat file of time-ordered images and reshapes them so they can be represented more appropriately as images in Python. The contents of the .mat file are reshaped and stored in a .npy file for later use. Use the reshaped .npy file instead of the original .mat for all other analysis purposes!!
-- **uniqueRuns.py**:
+- **average_analysis.py**: takes a .npy file representing the reshaped dataset and generates a plot of the average color in an LxL square over time, where L is an integer. The number of images from the dataset and the range of Ls to analyze can be changed to alter the focus of the analysis.
+- **movie_maker.py**: takes a .npy file representing the reshaped dataset and creates a .gif that plays the movie. This .gif can be saved or simply shown when the program is run, depending on if you want to keep the visual for later. Both .gif files in the **visualizations** folder were created from this script.
+- **overlay_square.py**: takes a .npy file representing the reshaped dataset and creates a plot displaying the "zoomed-in" LxL square of an image, the corresponding colorbar, and the full image with a red square overlaid in the approximate region where the cropped square was taken from. The current form of this script will create a plot for one image at a time, the index of which may be user-determined according to comments in the code.
+- **plot_samples.py**: takes a .npy file representing the reshaped dataset and plots stretched images of the user-determined samples. In its current form, the plot contains three images at roughly equidistant timesnaps in the chosen dataset, but these indices may be changed as needed to show a different set of images.
+- **reshape_data.py**: the first step before working with any of the other files in this repository. This program takes in a .mat file of time-ordered images and reshapes them so they can be represented more appropriately as images in Python. The contents of the .mat file are reshaped and stored in a .npy file for later use. Use the reshaped .npy file instead of the original .mat for all other analysis purposes.
+- **unique_runs.py**: Performs k x len(range of L) many unique k++ initializations for running K-means clustering on the specified dataset.

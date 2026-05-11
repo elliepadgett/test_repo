@@ -3,20 +3,9 @@ Name: uniqueRuns.py
 Date: Nov 2025
 Author: Ellie Padgett
 
-Performs k x len(L-range) many unique k++ initializations for running K-means clustering on the specified dataset.
+Performs k x len(range of L) many unique k++ initializations for running K-means clustering on the specified dataset.
 The supporting functions kmeans_pp_with_fixed_first() and all_kmeanspp_initializations() were originally drafted with
 support from Claude Sonnet 4.5 and tailored by the programmer to better fit the context of the problem.
-
-Exp 1: choose an "ideal" window size, pool all 12 datasets and cluster k=4
-Exp 2: after training on the sample 4 pooled, see how others of the same designs are placed into these clusters
-
-!! update figures in slides to use appropriate axes and labels!
-- avg analysis (old and new) ***
-- overlaid square (old) ***
-- timeline probing samples (new)
-- clustering (new)
-
-
 """
 ###
 # IMPORTS

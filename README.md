@@ -13,9 +13,9 @@
   <a href="#purpose">Purpose</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#overview">Overview</a> •
-  <a href="#">Visualization Programs</a> •
-  <a href="#">Utility Functions</a> •
-  <a href="#">Existing Visuals</a>
+  <a href="#visualization-programs">Visualization Programs</a> •
+  <a href="#utility-functions">Utility Functions</a> •
+  <a href="#existing-visuals">Existing Visuals</a>
 </p>
 
   
@@ -51,41 +51,36 @@ $ pip install -r requirements.txt
 ## Overview
 
 ```
-📂 helper_programs           # All utility and visualization scripts
-├── average_analysis.py       # Average over "square" area to generate whole time series
-├── movie_maker.py            # Generate GIFs from raw data
+📂 helper_programs           # Contains all utility and visualization scripts
+├── average_analysis.py       # Average over a "square" area to generate the complete time series curve
+├── movie_maker.py            # Generate GIFs from raw or reduced data
 ├── overlay_square.py         # Visualize square placement on the whole image
 ├── plot_samples.py           # Probe the timeline one image at a time
 ├── reshape_data.py           # Transform from .mat format to .npy
 ├── check_displacement.py     # Identify global y-axis limits for all datasets
 └── unique_runs.py            # Generate all unique k++ initializations for the specified dataset(s) and perform Kmeans clustering
-📂 premade_visuals           # Old/existing plots, images, samples 
+📂 premade_visuals           # Contains old/existing plots, images, samples 
 ├── 📂 avg_behavior          # Behavior of displacement averages over time by dataset
 ├── 📂 clusters              # Cluster membership for all realizations
 ├── 📂 gifs                  # Movies of raw data
 └── 📂 pooled_experiments    # Behavior and supplemental visuals for pooled experiments
-📂 raw_data                  # All original .mat files
+📂 raw_data                  # Contains all original .mat files
 ├── D17_D1_7p.mat
 └── ...
-📂 reshaped_data             # All reshaped .npy files
+📂 reshaped_data             # Contains all reshaped .npy files
 ├── D17_D1_7p.npy
 └── ...
-📂 results                   # Tables and interpretations to date
+📂 results                   # Contains all tables and interpretations to date
 └── membership_and_purity.pdf
 ```
 
 ## Visualization Programs
 
-- [Movie Maker](#movie_maker)
+- [Movie Maker](#movie_maker.py)
 - [Overlay Square](#overlay_square)
 - [Plot Samples](#plot_samples)
 
 <!--- Replace these with your file names --->
-
-### Movie Maker
-
-```python
-```
 
 - **average_analysis.py**: takes a .npy file representing the reshaped dataset and generates a plot of the average color in an LxL square over time, where L is an integer. The number of images from the dataset and the range of Ls to analyze can be changed to alter the focus of the analysis.
 - **movie_maker.py**: takes a .npy file representing the reshaped dataset and creates a .gif that plays the movie. This .gif can be saved or simply shown when the program is run, depending on if you want to keep the visual for later. Both .gif files in the **visualizations** folder were created from this script.

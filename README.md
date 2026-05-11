@@ -75,15 +75,17 @@ $ pip install -r requirements.txt
 ```
 
 ## Visualization Programs
-### A collection of programs which exclusively produce various visuals (GIFs, snapshots, etc.) from the raw or reduced data.
+#### A collection of programs which exclusively produce various visuals (GIFs, snapshots, etc.) from the raw or reduced data.
 - **movie_maker.py**: takes a .npy file representing the reshaped dataset and creates a .gif that plays the movie. This .gif can be saved or simply shown when the program is run, depending on if you want to keep the visual for later. Both .gif files in the **visualizations** folder were created from this script.
 - **overlay_square.py**: takes a .npy file representing the reshaped dataset and creates a plot displaying the "zoomed-in" LxL square of an image, the corresponding colorbar, and the full image with a red square overlaid in the approximate region where the cropped square was taken from. The current form of this script will create a plot for one image at a time, the index of which may be user-determined according to comments in the code.
 - **plot_samples.py**: takes a .npy file representing the reshaped dataset and plots stretched images of the user-determined samples. In its current form, the plot contains three images at roughly equidistant timesnaps in the chosen dataset, but these indices may be changed as needed to show a different set of images.
 
 ## Utility Scripts
-### A collection of programs that do the bulk of the analytical work for this project.
+#### A collection of programs that do the bulk of the analytical work for this project.
 - **reshape_data.py**: the first step before working with any of the other files in this repository. This program takes in a .mat file of time-ordered images and reshapes them so they can be represented more appropriately as images in Python. The contents of the .mat file are reshaped and stored in a .npy file for later use. Use the reshaped .npy file instead of the original .mat for all other analysis purposes.
 - **average_analysis.py**: takes a .npy file representing the reshaped dataset and generates a plot of the average color in an LxL square over time, where L is an integer. The number of images from the dataset and the range of Ls to analyze can be changed to alter the focus of the analysis. This script is also responsible for producing organized time-series plots of the specified dataset(s).
 - **unique_runs.py**: Performs k x len(range of L) many unique k++ initializations for running K-means clustering on the specified dataset.
+- **cross_validation.py**: Determines the consistency of the clustering scheme by cross-referencing all possible initializations from all possible combinations of training sets. Each training set is composed of 4 datasets, one from each design (7p, 2p, 0p, and np). After training a kmeans model using a training set, all other datasets in the folder (12 total) are fed into it and placed into their predicted clusters. Finally, the program checks how consistent the different models are in determining which designs dominate which clusters.
 
 ## Existing Visuals and Tables
+#### Includes membership and purity tables as well as pre-made time series GIFs, cluster membership plots, and visuals showing average displacement over time for the included raw/reshaped datasets in this repository.

@@ -6,7 +6,6 @@ Author: Ellie Padgett
 Performs k x len(range of L) many unique k++ initializations for running K-means clustering on the specified dataset.
 The supporting functions kmeans_pp_with_fixed_first() and all_kmeanspp_initializations() were originally drafted with
 support from Claude Sonnet 4.5 and tailored by the programmer to better fit the context of the problem.
-
 """
 
 ###
@@ -30,7 +29,6 @@ ymax, ymin = cd.colorRange("../reshaped_data")
 ###
 # FUNCTIONS
 ###
-
 def clustering_L(data, d, centroids, k, idx, title, save=False, show=False, print=False):
   """
   Clustering for each dataset, cluster over L = 60:80:2 for specified dataset option and number of clusters

@@ -53,24 +53,24 @@ $ pip install -r requirements.txt
 ```
 📂 helper_programs           # Contains all utility and visualization scripts
 ├── average_analysis.py       # Average over a "square" area to generate the complete time series curve
+├── check_displacement.py     # Identify global y-axis limits for all datasets
+├── cross_validation.py       # Computes stability measures of all clustering combinations
 ├── movie_maker.py            # Generate GIFs from raw or reduced data
 ├── overlay_square.py         # Visualize square placement on the whole image
 ├── plot_samples.py           # Probe the timeline one image at a time
 ├── reshape_data.py           # Transform from .mat format to .npy
-├── check_displacement.py     # Identify global y-axis limits for all datasets
 └── unique_runs.py            # Generate all unique k++ initializations for the specified dataset(s) and perform Kmeans clustering
 📂 premade_visuals           # Contains old/existing plots, images, samples 
 ├── 📂 avg_behavior          # Behavior of displacement averages over time by dataset
-├── 📂 clusters              # Cluster membership for all realizations
-├── 📂 gifs                  # Movies of raw data
-└── 📂 pooled_experiments    # Behavior and supplemental visuals for pooled experiments
+├── 📂 clusters              # Cluster membership for all realizations of the original four designs
+└── 📂 gifs                  # Movies of raw data
 📂 raw_data                  # Contains all original .mat files
 ├── D17_D1_7p.mat
 └── ...
 📂 reshaped_data             # Contains all reshaped .npy files
 ├── D17_D1_7p.npy
 └── ...
-📂 results                   # Contains all tables and interpretations to date
+📂 results                   # Contains all results, tables, and interpretations to date
 ├── all_results.pkl
 ├── membership_and_purity.pdf
 └── validation_and_stability.pdf

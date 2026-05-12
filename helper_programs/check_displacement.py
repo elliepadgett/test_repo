@@ -23,6 +23,17 @@ import average_analysis as aa
 # FUNCTIONS
 ###
 def colorRange(folder):
+  """
+  Determines the maximum and minimum y-values present in the time series produced by
+  all experiments in the specified directory.
+
+  Parameters:
+    folder (string): the path to the folder containing the datasets
+  
+  Returns:
+    tuple(float, float): a tuple containing the maximum and minimum values encountered in 
+                         the time series across all datasets
+  """
   folder_path = Path(folder)
 
   mx = []
@@ -32,7 +43,7 @@ def colorRange(folder):
   # want to find image with max/min average in each dataset!!
   for file_path in folder_path.iterdir():
       if file_path.is_file():
-          y_axis = aa.average_analysis([file_path.name[:-4]])
+          y_axis = aa.average_analysis(folder, [file_path.name[:-4]])
           mx.append(np.max(y_axis))
           mn.append(np.min(y_axis))
   ## scaling back to counter the scaling in average_analysis

@@ -9,6 +9,13 @@ each design (7p, 2p, 0p, and np). After training a kmeans model using a training
 in the folder (12 total) are fed into it and placed into their predicted clusters. Finally, the program 
 checks how consistent the different models are in determining which designs dominate which clusters.
 
+The following functions were developed with assistance from Claude Sonnet 4.5 and were adapted by the 
+programmer to better fit the needs of the program:
+  - get_groups()
+  - majority_label()
+  - best_label_mapping()
+  - align_all_to_reference()
+  - check_cluster_consistency()
 """
 
 ###
@@ -107,7 +114,7 @@ def all_initializations(filepath, k=4):
     print(f"Minimum overall coherence at index {first_index}: {min}")
 
     rng = np.random.default_rng(111)
-    ## fix the first center based on the 
+    ## fix the first center based on the scheme with best overall coherence
     centers_idx = [first_index-1]
     n = d.shape[0]
 
@@ -144,7 +151,6 @@ def all_initializations(filepath, k=4):
     # use the model to predict the fit for other datasets based on their avg analysis
     results[idx] = {}
     for title in Path("../reshaped_data").iterdir():
-      # repeat target 4 times to match expected input shape, or redesign for single-file prediction
       avgs = pd.DataFrame(np.array(aa.average_analysis([title.name[:-4]], title.name[:-4])))
       predictions = kmeans.predict(avgs)
       results[idx][title.name[:-4]] = predictions
@@ -272,7 +278,7 @@ def check_cluster_consistency(results, k=4):
     print("Same-design label agreement (higher = better)")
     print("="*45)
     for design, agreements in sorted(same_design_agreement.items()):
-        print(f"  {design}: {np.mean(agreements):.3f}  (n={len(agreements)})")
+        print(f"  {design}: {np.mean(agreements):.3f}")
 
     print("\nCross-design label agreement (lower = better)")
     print("="*45)
@@ -286,9 +292,8 @@ def check_cluster_consistency(results, k=4):
 ###
 def main():
 
-  ## create all 81 models and save their cluster labels 
-  # (this part takes a while; comment out when done so it doesn't run every time)
-  # all_initializations("../reshaped_data")
+  ## create all 81 models and save their cluster labels (this part takes a while; comment out when done so it doesn't run every time)
+  # all_initializations("../reshaped_data") # dictionary saved to ../results/all_results.pkl
 
   # load the results dictionary
   with open("../results/all_results.pkl", "rb") as f:

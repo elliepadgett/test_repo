@@ -9,7 +9,6 @@ section. Each L-square's behavior will be plotted over time. Currently able to p
 
 The data set consists of 119 images as arranged in the file d*_50v_reshaped.npy. Change the 
 filepaths in lines 60, 139, and/or 145 to pull from different reshaped datasets. 
-
 """
 
 ###
@@ -28,11 +27,10 @@ from pathlib import Path
 ymin = (10**5)*(-1.1115019440364524e-06)
 ymax = (10**5)*(2.3261941377613877e-07)
 
-
 ###
 # FUNCTIONS
 ###
-def average_analysis(datasets, title="Untitled", save = False, show=False, byL = False):
+def average_analysis(folderpath="../reshaped_data", datasets=[], title="Untitled", save = False, show=False, byL = False):
     """
     Computes the average color in a square of width L = 60:10:80 for images 0-29 in the
     provided dataset. The averages for this dataset are stored in a list for each L-square,
@@ -40,15 +38,16 @@ def average_analysis(datasets, title="Untitled", save = False, show=False, byL =
     L-square.
 
     Parameters:
-        data ([string]): the filepath(s) of the reshaped dataset(s) to be analyzed
-        title (string):  the name of the dataset to be worked with, in order to dynamically 
-                         label the plot(s) correctly
-        save (bool):     true to save the generated plots without showing; false otherwise
-        show (bool):     true to show the generated plots; false otherwise
-        byL (bool:)      true to plot the datasets organized by L-size; false to plot by design (default)
+        folderpath (string): the path to the folder containing the files to be analyzed
+        data ([string]):     the filepath(s) of the reshaped dataset(s) to be analyzed
+        title (string):      the name of the dataset to be worked with, in order to dynamically 
+                             label the plot(s) correctly
+        save (bool):         true to save the generated plots without showing; false otherwise
+        show (bool):         true to show the generated plots; false otherwise
+        byL (bool:)          true to plot the datasets organized by L-size; false to plot by design (default)
     
     Return:
-        list: the 2D list containing the lists of averages computed for each L-square
+        list:                the 2D list containing the lists of averages computed for each L-square
     """
     length = np.linspace(60, 80, 11) # different values of L to check out
     x_axis = np.linspace(0, 29, 30) # indices of the images to analyze
@@ -59,7 +58,7 @@ def average_analysis(datasets, title="Untitled", save = False, show=False, byL =
       plt.figure(figsize=(10, 9))
 
     for x in range(len(datasets)):
-      data = np.load('../reshaped_data/' + datasets[x] + '.npy')[:30]
+      data = np.load(f"{folderpath}/{datasets[x]}.npy")[:30]
       height, width = data.shape[1:] # (119), 5000, 471 (for d*_50v experiments)
       scale = height/width # approx 10.6
       scale_approx = math.floor(scale) # need an integer for image slicing
@@ -140,15 +139,16 @@ def average_analysis(datasets, title="Untitled", save = False, show=False, byL =
 ###
 def main():
     ## to use the entire folder of datasets
-    names = Path("../reshaped_data").iterdir()
+    path = "../reshaped_data"
+    names = Path(path).iterdir()
     for name in names:
       name = name.name[:-4]
-      average_analysis([name], name, byL=True, save=False, show=True)
+      print(name)
+      average_analysis(path, [name], name, byL=True, save=False, show=True)
 
     ## to plot multiple designs in the same figure, choose the set of up to four designs to work with --> these are the original four I chose
     names = ["D17_D1_7p", "D17_D8_2p", "D17_D2_0p", "D17_D1_np"]
-    average_analysis(names, "four_designs_byL", byL=False, save=False, show=True)
+    average_analysis(datasets=names, title="four_designs_byL", byL=False, save=False, show=True)
     
-
 if __name__ == "__main__":
     main()

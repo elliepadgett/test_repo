@@ -71,7 +71,10 @@ $ pip install -r requirements.txt
 ├── D17_D1_7p.npy
 └── ...
 📂 results                   # Contains all tables and interpretations to date
-└── membership_and_purity.pdf
+├── all_results.pkl
+├── membership_and_purity.pdf
+└── validation_and_stability.pdf
+
 ```
 
 ## Visualization Programs

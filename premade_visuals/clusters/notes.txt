@@ -1,0 +1,7 @@
+The Four Designs folder consists of all 44 clustering realizations of the datasets D17_D1_7p, D17_D8_2p, D17_D2_0p, and D17_D1_np 
+using a seed of 111 and k=4. These figures have not been inspected or filtered for duplicates, although at first glance it is
+apparent that there are only a few truly unique conclusions that the K-means algorithm came to.
+
+The coherence.txt file contains all terminal output from the same run of unique_runs.py, including information about each clustering
+scheme's cluster labels intracluster coherence, and "tightest" cluster. All should be tab-separated, so easy to copy-paste into a
+spreadsheet for further analysis/organization.

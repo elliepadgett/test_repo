@@ -32,7 +32,7 @@ ymax = (10**5)*(2.3261941377613877e-07)
 ###
 # FUNCTIONS
 ###
-def average_analysis(datasets, title="Untitled", save = False, byL = False):
+def average_analysis(datasets, title="Untitled", save = False, show=False, byL = False):
     """
     Computes the average color in a square of width L = 60:10:80 for images 0-29 in the
     provided dataset. The averages for this dataset are stored in a list for each L-square,
@@ -43,8 +43,8 @@ def average_analysis(datasets, title="Untitled", save = False, byL = False):
         data ([string]): the filepath(s) of the reshaped dataset(s) to be analyzed
         title (string):  the name of the dataset to be worked with, in order to dynamically 
                          label the plot(s) correctly
-        plots (bool):    true to save the generated plots without showing; false to show them
-                         without saving (default)
+        save (bool):     true to save the generated plots without showing; false otherwise
+        show (bool):     true to show the generated plots; false otherwise
         byL (bool:)      true to plot the datasets organized by L-size; false to plot by design (default)
     
     Return:
@@ -54,7 +54,9 @@ def average_analysis(datasets, title="Untitled", save = False, byL = False):
     x_axis = np.linspace(0, 29, 30) # indices of the images to analyze
   
     all_L = [] # collection array for L samples
-    plt.figure(figsize=(10, 9))
+    
+    if save or show:
+      plt.figure(figsize=(10, 9))
 
     for x in range(len(datasets)):
       data = np.load('../reshaped_data/' + datasets[x] + '.npy')[:30]
@@ -74,57 +76,59 @@ def average_analysis(datasets, title="Untitled", save = False, byL = False):
               avg = np.mean(sq) # average over entire array of positive color values
               y_axis.append(avg*(10**5))
               
-          ## plot each L-trend by L size
-          if byL:
-            if l < 68:
-                plt.plot(x_axis, y_axis, color = 'lightseagreen')
-            elif l < 76:
-                plt.plot(x_axis, y_axis, color = 'orange')
-            else:
-                plt.plot(x_axis, y_axis, color = 'firebrick')
-          else: 
-            ## plot each L-trend by design
-            if x == 0:
-                plt.plot(x_axis, y_axis, color = 'lightseagreen')
-            elif x == 1:
-                plt.plot(x_axis, y_axis, color = 'orange')
-            elif x == 2:
-              plt.plot(x_axis, y_axis, color = 'teal')
-            else:
-                plt.plot(x_axis, y_axis, color = 'firebrick')
+          if save or show:
+            ## plot each L-trend by L size
+            if byL:
+              if l < 68:
+                  plt.plot(x_axis, y_axis, color = 'lightseagreen')
+              elif l < 76:
+                  plt.plot(x_axis, y_axis, color = 'orange')
+              else:
+                  plt.plot(x_axis, y_axis, color = 'firebrick')
+            else: 
+              ## plot each L-trend by design
+              if x == 0:
+                  plt.plot(x_axis, y_axis, color = 'lightseagreen')
+              elif x == 1:
+                  plt.plot(x_axis, y_axis, color = 'orange')
+              elif x == 2:
+                plt.plot(x_axis, y_axis, color = 'teal')
+              else:
+                  plt.plot(x_axis, y_axis, color = 'firebrick')
             
           all_L.append(y_axis)
           y_axis = []
     
-    ## add legend, labels (handles), global axes, title
-    if byL:
-      ## create handles by L-range
-      small = mpatches.Patch(color='lightseagreen', label="L: 60 - 66")
-      med = mpatches.Patch(color='orange', label="L: 68 - 74")
-      large = mpatches.Patch(color='firebrick', label="L: 76 - 80")
-      handles = [small, med, large]
-    else:
-      ## create handles by design
-      handles = []
-      colors = ["darkturquoise", "orange", "teal", "firebrick"]
-      for i in range(len(datasets)):
-         handles.append(mpatches.Patch(color=colors[i], label=datasets[i]))
+    if save or show:
+      ## add legend, labels (handles), global axes, title
+      if byL:
+        ## create handles by L-range
+        small = mpatches.Patch(color='lightseagreen', label="L: 60 - 66")
+        med = mpatches.Patch(color='orange', label="L: 68 - 74")
+        large = mpatches.Patch(color='firebrick', label="L: 76 - 80")
+        handles = [small, med, large]
+      else:
+        ## create handles by design
+        handles = []
+        colors = ["darkturquoise", "orange", "teal", "firebrick"]
+        for i in range(len(datasets)):
+          handles.append(mpatches.Patch(color=colors[i], label=datasets[i]))
 
-    if byL:
-       des = "L-size"
-    else:
-       des = "Design"
-    plt.legend(handles=handles, loc='lower right')
-    plt.xlabel("Time (\u03BCs)")
-    plt.ylabel("Average Displacement (\u03BCm)")
-    plt.ylim(ymin, ymax)
-    plt.title(f"{title}: Average Color Behavior over Time (Organized by {des})")
+      if byL:
+        des = "L-size"
+      else:
+        des = "Design"
+      plt.legend(handles=handles, loc='lower right')
+      plt.xlabel("Time (\u03BCs)")
+      plt.ylabel("Average Displacement (\u03BCm)")
+      plt.ylim(ymin, ymax)
+      plt.title(f"{title}: Average Color Behavior over Time (Organized by {des})")
     
     ## save figure to specified file path (edit as needed)
     if save:
       plt.savefig("../premade_visuals/avg_behavior/" + title + ".png")
-    else:
-      ## show the figure without saving it
+    if show:
+      ## show the figure (without saving it)
       plt.show()
 
     ## returns the computed averages (y-axis values) for each time series
@@ -139,11 +143,11 @@ def main():
     names = Path("../reshaped_data").iterdir()
     for name in names:
       name = name.name[:-4]
-      average_analysis([name], name, byL=True, save=False)
+      average_analysis([name], name, byL=True, save=False, show=True)
 
     ## to plot multiple designs in the same figure, choose the set of up to four designs to work with --> these are the original four I chose
     names = ["D17_D1_7p", "D17_D8_2p", "D17_D2_0p", "D17_D1_np"]
-    average_analysis(names, "four_designs_byL", byL=False, save=False)
+    average_analysis(names, "four_designs_byL", byL=False, save=False, show=True)
     
 
 if __name__ == "__main__":

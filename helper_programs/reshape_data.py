@@ -22,6 +22,10 @@ import numpy as np
 import scipy.io as scp
 from pathlib import Path
 
+###
+# MAIN PROGRAM
+###
+
 # data file contains: n (119) images, each mxl (5000x471) in originals
 for title in Path("../raw_data").iterdir():
   data = scp.loadmat('../raw_data/' + title.name)

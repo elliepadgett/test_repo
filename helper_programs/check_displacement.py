@@ -9,7 +9,7 @@ image in each dataset. These two values are needed for accurate global scaling f
 and will not be globally aligned.
 
 Each data set consists of 80 images contained in .npy files and should be stored in the 'reshaped_data'
-folder. To change the location to search through, change the directory name on line 26.
+folder. To change the location to search through, change the directory name on line 42.
 """
 
 ###
@@ -32,14 +32,11 @@ def colorRange(folder):
   # want to find image with max/min average in each dataset!!
   for file_path in folder_path.iterdir():
       if file_path.is_file():
-          data = np.load(file_path)
-
-          y_axis = aa.average_analysis(data, file_path.name[-4:], plots=False)
-          
+          y_axis = aa.average_analysis([file_path.name[:-4]])
           mx.append(np.max(y_axis))
           mn.append(np.min(y_axis))
   ## scaling back to counter the scaling in average_analysis
   return (np.max(mx)*(10**-5), np.min(mn)*(10**-5))
 
 ## printed in the format (Max y-value, min y-value)
-print(colorRange("../reshaped_data"))
+# print(colorRange("../reshaped_data"))

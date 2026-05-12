@@ -31,6 +31,9 @@ import check_displacement as cd
 ## change the path to the folder containing the data to inspect
 ymax, ymin = cd.colorRange("../reshaped_data")
 
+###
+# FUNCTIONS
+###
 def make_movie(dataset, save=False):
   data = np.load(dataset)
 
@@ -61,11 +64,14 @@ def make_movie(dataset, save=False):
     ## showtime! preview the GIF without saving a copy
     plt.show()
 
-
 ###
 # MAIN PROGRAM
 ###
-## change this filepath to work with a different reshaped dataset!
-path = Path("../reshaped_data")
-for dataset in path.iterdir():
-  make_movie(dataset, save=True)
+def main():
+  ## change this filepath to work with a different reshaped dataset!
+  path = Path("../reshaped_data")
+  for dataset in path.iterdir():
+    make_movie(dataset, save=True)
+
+if __name__ == "__main__":
+  main()

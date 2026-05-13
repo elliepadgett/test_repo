@@ -8,8 +8,8 @@ This program creates and saves a movie animation of the selected reshaped datase
 IMPORTANT: Before running this program, make sure the loaded dataset is the appropriate .npy
 file, AND that the name of the save file is not the same as an existing .gif in your directory!
 
-The data set consists of 119 images as arranged in the file *reshaped.npy. Change the 
-filepath in line 39 to pull from a different reshaped dataset.
+The data set consists of images as arranged in the file *reshaped.npy. Change the 
+filepath in line 81 to pull from a different reshaped dataset.
 
 Refs: 
     https://matplotlib.org/stable/users/explain/animations/animations.html
@@ -35,6 +35,16 @@ ymax, ymin = cd.colorRange("../reshaped_data")
 # FUNCTIONS
 ###
 def make_movie(dataset, save=False):
+  """
+  Generates a GIF from the provided filepath.
+
+  Parameters:
+    dataset (string): the path to the data file
+    save (bool):      true to save the completed GIF, false to show without saving (default)
+
+  Returns:  
+    None
+  """
   data = np.load(dataset)
 
   fig, ax = plt.subplots()

@@ -18,11 +18,10 @@
   <a href="#existing-visuals-and-tables">Existing Visuals and Tables</a>
 </p>
 
-  
-<!--  A gif to demonstrate what the program does -->
 
-<div align=”center”>
 
+<div align="center">
+  <img src="premade_visuals/gifs/d1_50v_reshaped.gif">
 </div>
 
 ## Purpose
